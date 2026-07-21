@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  /* Brand colors matching Professional Polish (Slate & Blue Theme) */
+  --color-brand-50: #f8fafc;   /* slate-50 background */
+  --color-brand-100: #eff6ff;  /* blue-50 accent */
+  --color-brand-200: #dbeafe;  /* blue-100 accent border */
+  --color-brand-300: #bfdbfe;  /* blue-200 focus/accent */
+  --color-brand-500: #2563eb;  /* blue-600 primary button / brand */
+  --color-brand-600: #1d4ed8;  /* blue-700 primary hover / dark accent */
+  --color-brand-900: #0f172a;  /* slate-900 core text / cards text */
+}
+
