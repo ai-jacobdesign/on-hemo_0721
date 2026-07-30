@@ -384,7 +384,7 @@ export default function App() {
 
   const getHemoglobinStatus = (val: number) => {
     if (val < 10.0) return { text: '낮음 (빈혈 우려)', color: 'text-amber-600 bg-amber-50 border-amber-200', severity: 'warning' };
-    if (val > 11.0) return { text: '높음 (혈전/합병증 우려)', color: 'text-rose-600 bg-rose-50 border-rose-200', severity: 'danger' };
+    if (val > 11.5) return { text: '높음 (혈전/합병증 우려)', color: 'text-rose-600 bg-rose-50 border-rose-200', severity: 'danger' };
     return { text: '적정 (투석 목표 범위)', color: 'text-emerald-600 bg-emerald-50 border-emerald-200', severity: 'safe' };
   };
 
@@ -468,7 +468,7 @@ export default function App() {
     const caTargetMaxY = height - paddingY - ((10.2 - yMin) / (yMax - yMin)) * chartH;
     
     const hbTargetMinY = height - paddingY - ((10.0 - yMin) / (yMax - yMin)) * chartH;
-    const hbTargetMaxY = height - paddingY - ((11.0 - yMin) / (yMax - yMin)) * chartH;
+    const hbTargetMaxY = height - paddingY - ((11.5 - yMin) / (yMax - yMin)) * chartH;
 
     const tMinY = type === 'calcium' ? caTargetMinY : (type === 'phosphorus' ? pTargetMinY : type === 'hemoglobin' ? hbTargetMinY : kTargetMinY);
     const tMaxY = type === 'calcium' ? caTargetMaxY : (type === 'phosphorus' ? pTargetMaxY : type === 'hemoglobin' ? hbTargetMaxY : kTargetMaxY);
@@ -763,7 +763,7 @@ export default function App() {
                   <div className="flex justify-between items-center mb-1">
                     <label className="text-xs font-semibold text-slate-700 flex items-center gap-1">
                       <span>혈색소 (Hb)</span>
-                      <span className="text-[10px] text-slate-400 font-normal">(목표: 10.0 - 11.0 g/dL)</span>
+                      <span className="text-[10px] text-slate-400 font-normal">(목표: 10.0 - 11.5 g/dL)</span>
                     </label>
                     <span className="text-xs font-mono font-bold text-orange-600">{hemoglobin} g/dL</span>
                   </div>
@@ -888,7 +888,7 @@ export default function App() {
                       <div className="w-full">
                         <div className="flex justify-between items-center mb-1 px-1">
                           <span className="text-xs font-semibold text-slate-500">혈색소 수치 이력 대조 (단위: g/dL)</span>
-                          <span className="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-sm">목표: 10.0 ~ 11.0</span>
+                          <span className="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-sm">목표: 10.0 ~ 11.5</span>
                         </div>
                         {drawTrendLine('hemoglobin', '#8b5cf6', 5.0, 16.0)}
                       </div>
@@ -1222,10 +1222,10 @@ export default function App() {
               <div className="text-[22px] font-extrabold font-mono mt-1 text-emerald-600">{calcium} mg/dL</div>
               <div className="text-[12px] mt-1 font-semibold text-emerald-600">{caStatus.text}</div>
             </div>
-            <div className={`p-2 bg-white rounded-lg border border-rose-200 bg-rose-50 text-rose-600`}>
+            <div className={`p-2 bg-white rounded-lg border ${hbStatus.color}`}>
               <div className="text-[13px] font-bold text-slate-500">측정 혈색소 (Hb)</div>
-              <div className="text-[22px] font-extrabold font-mono mt-1">{hemoglobin} g/dL</div>
-              <div className="text-[12px] mt-1 font-semibold">높음 (혈전/합병증 우려)</div>
+              <div className={`text-[22px] font-extrabold font-mono mt-1 ${hbStatus.severity === 'safe' ? 'text-emerald-600' : ''}`}>{hemoglobin} g/dL</div>
+              <div className={`text-[12px] mt-1 font-semibold ${hbStatus.severity === 'safe' ? 'text-emerald-600' : ''}`}>{hbStatus.text}</div>
             </div>
           </div>
 
