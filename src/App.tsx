@@ -19,8 +19,10 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { toPng } from 'html-to-image';
-import { FOUR_WEEK_MEAL_PLAN_TEMPLATE, DailyMealPlan } from './data';
+import { DailyMealPlan } from './data';
+import { MEAL_DATABASE } from './mealDatabase';
 import CsvValidator from './components/CsvValidator';
+
 import mealBulgogi from './assets/images/meal_bulgogi.jpg';
 import mealFish from './assets/images/meal_fish.jpg';
 import mealTofu from './assets/images/meal_tofu.jpg';
@@ -172,35 +174,35 @@ export function getAdjustedMealPlan(
     seed |= 0;
   }
   
-  // Create a copy of the template and shuffle it based on the seed
-  // We want to keep the day names (Mon-Sun) and weeks (1-4) structural, 
-  // just shuffle the actual meal contents across the 28 days
-  const baseMeals = [...FOUR_WEEK_MEAL_PLAN_TEMPLATE];
-  
   const random = () => {
     const x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
   };
   
-  for (let i = baseMeals.length - 1; i > 0; i--) {
+  // Pick 28 distinct meals from the MEAL_DATABASE
+  const dbCopy = [...MEAL_DATABASE];
+  for (let i = dbCopy.length - 1; i > 0; i--) {
     const j = Math.floor(random() * (i + 1));
-    // Swap everything except week, dayIndex, dayName
-    const temp = { ...baseMeals[i] };
-    
-    baseMeals[i].mealName = baseMeals[j].mealName;
-    baseMeals[i].mealDescription = baseMeals[j].mealDescription;
-    baseMeals[i].category = baseMeals[j].category;
-    baseMeals[i].potassiumMg = baseMeals[j].potassiumMg;
-    baseMeals[i].phosphorusMg = baseMeals[j].phosphorusMg;
-    baseMeals[i].calciumMg = baseMeals[j].calciumMg;
-    
-    baseMeals[j].mealName = temp.mealName;
-    baseMeals[j].mealDescription = temp.mealDescription;
-    baseMeals[j].category = temp.category;
-    baseMeals[j].potassiumMg = temp.potassiumMg;
-    baseMeals[j].phosphorusMg = temp.phosphorusMg;
-    baseMeals[j].calciumMg = temp.calciumMg;
+    [dbCopy[i], dbCopy[j]] = [dbCopy[j], dbCopy[i]];
   }
+  
+  const selectedMeals = dbCopy.slice(0, 28);
+  
+  const days = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
+  const baseMeals: DailyMealPlan[] = selectedMeals.map((meal, index) => {
+    return {
+      week: Math.floor(index / 7) + 1,
+      dayIndex: index % 7,
+      dayName: days[index % 7],
+      mealName: meal.mealName,
+      mealDescription: meal.mealDescription,
+      category: meal.category as any,
+      potassiumMg: meal.potassiumMg,
+      phosphorusMg: meal.phosphorusMg,
+      calciumMg: meal.calciumMg,
+      proteinG: meal.proteinG
+    };
+  });
 
   // Continuous reduction factor based on where they stand relative to the target's starting point
   const factor_k = potassium > 3.5 ? Math.max(0.4, 1.0 - 0.15 * (potassium - 3.5)) : 1.0;
@@ -1208,22 +1210,22 @@ export default function App() {
           {/* Current Labs Indicator Row */}
           <div className="grid grid-cols-4 gap-4 bg-slate-50/50 p-2 border border-slate-200 rounded-xl text-center shrink-0">
             <div className={`p-2 bg-white rounded-lg border ${kStatus.color}`}>
-              <div className="text-[13px] font-bold text-slate-500">측정 칼륨 (K)</div>
+              <div className="text-[13px] font-bold text-slate-500">측정 칼륨 (K) <span className="font-normal text-[11px] ml-0.5">(정상: 3.5~5.5)</span></div>
               <div className="text-[22px] font-extrabold font-mono mt-1 text-emerald-600">{potassium} mEq/L</div>
               <div className="text-[12px] mt-1 font-semibold text-emerald-600">{kStatus.text}</div>
             </div>
             <div className={`p-2 bg-white rounded-lg border ${pStatus.color}`}>
-              <div className="text-[13px] font-bold text-slate-500">측정 인 (P)</div>
+              <div className="text-[13px] font-bold text-slate-500">측정 인 (P) <span className="font-normal text-[11px] ml-0.5">(정상: 3.0~5.5)</span></div>
               <div className="text-[22px] font-extrabold font-mono mt-1 text-emerald-600">{phosphorus} mg/dL</div>
               <div className="text-[12px] mt-1 font-semibold text-emerald-600">{pStatus.text}</div>
             </div>
             <div className={`p-2 bg-white rounded-lg border ${caStatus.color}`}>
-              <div className="text-[13px] font-bold text-slate-500">측정 칼슘 (Ca)</div>
+              <div className="text-[13px] font-bold text-slate-500">측정 칼슘 (Ca) <span className="font-normal text-[11px] ml-0.5">(정상: 8.4~10.2)</span></div>
               <div className="text-[22px] font-extrabold font-mono mt-1 text-emerald-600">{calcium} mg/dL</div>
               <div className="text-[12px] mt-1 font-semibold text-emerald-600">{caStatus.text}</div>
             </div>
             <div className={`p-2 bg-white rounded-lg border ${hbStatus.color}`}>
-              <div className="text-[13px] font-bold text-slate-500">측정 혈색소 (Hb)</div>
+              <div className="text-[13px] font-bold text-slate-500">측정 혈색소 (Hb) <span className="font-normal text-[11px] ml-0.5">(정상: 10.0~11.5)</span></div>
               <div className={`text-[22px] font-extrabold font-mono mt-1 ${hbStatus.severity === 'safe' ? 'text-emerald-600' : ''}`}>{hemoglobin} g/dL</div>
               <div className={`text-[12px] mt-1 font-semibold ${hbStatus.severity === 'safe' ? 'text-emerald-600' : ''}`}>{hbStatus.text}</div>
             </div>
