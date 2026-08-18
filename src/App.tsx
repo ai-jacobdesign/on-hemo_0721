@@ -1211,23 +1211,23 @@ export default function App() {
           <div className="grid grid-cols-4 gap-4 bg-slate-50/50 p-2 border border-slate-200 rounded-xl text-center shrink-0">
             <div className={`p-2 bg-white rounded-lg border ${kStatus.color}`}>
               <div className="text-[13px] font-bold text-slate-500">측정 칼륨 (K) <span className="font-normal text-[11px] ml-0.5">(정상: 3.5~5.5)</span></div>
-              <div className="text-[22px] font-extrabold font-mono mt-1 text-emerald-600">{potassium} mEq/L</div>
-              <div className="text-[12px] mt-1 font-semibold text-emerald-600">{kStatus.text}</div>
+              <div className="text-[22px] font-extrabold font-mono mt-1">{potassium} mEq/L</div>
+              <div className="text-[12px] mt-1 font-semibold">{kStatus.text}</div>
             </div>
             <div className={`p-2 bg-white rounded-lg border ${pStatus.color}`}>
               <div className="text-[13px] font-bold text-slate-500">측정 인 (P) <span className="font-normal text-[11px] ml-0.5">(정상: 3.0~5.5)</span></div>
-              <div className="text-[22px] font-extrabold font-mono mt-1 text-emerald-600">{phosphorus} mg/dL</div>
-              <div className="text-[12px] mt-1 font-semibold text-emerald-600">{pStatus.text}</div>
+              <div className="text-[22px] font-extrabold font-mono mt-1">{phosphorus} mg/dL</div>
+              <div className="text-[12px] mt-1 font-semibold">{pStatus.text}</div>
             </div>
             <div className={`p-2 bg-white rounded-lg border ${caStatus.color}`}>
               <div className="text-[13px] font-bold text-slate-500">측정 칼슘 (Ca) <span className="font-normal text-[11px] ml-0.5">(정상: 8.4~10.2)</span></div>
-              <div className="text-[22px] font-extrabold font-mono mt-1 text-emerald-600">{calcium} mg/dL</div>
-              <div className="text-[12px] mt-1 font-semibold text-emerald-600">{caStatus.text}</div>
+              <div className="text-[22px] font-extrabold font-mono mt-1">{calcium} mg/dL</div>
+              <div className="text-[12px] mt-1 font-semibold">{caStatus.text}</div>
             </div>
             <div className={`p-2 bg-white rounded-lg border ${hbStatus.color}`}>
               <div className="text-[13px] font-bold text-slate-500">측정 혈색소 (Hb) <span className="font-normal text-[11px] ml-0.5">(정상: 10.0~11.5)</span></div>
-              <div className={`text-[22px] font-extrabold font-mono mt-1 ${hbStatus.severity === 'safe' ? 'text-emerald-600' : ''}`}>{hemoglobin} g/dL</div>
-              <div className={`text-[12px] mt-1 font-semibold ${hbStatus.severity === 'safe' ? 'text-emerald-600' : ''}`}>{hbStatus.text}</div>
+              <div className="text-[22px] font-extrabold font-mono mt-1">{hemoglobin} g/dL</div>
+              <div className="text-[12px] mt-1 font-semibold">{hbStatus.text}</div>
             </div>
           </div>
 
