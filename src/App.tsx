@@ -373,20 +373,20 @@ export default function App() {
   };
 
   const getPhosphorusStatus = (val: number) => {
-    if (val < 2.5) return { text: '낮음', color: 'text-amber-600 bg-amber-50 border-amber-200', severity: 'warning' };
+    if (val < 3.0) return { text: '낮음', color: 'text-amber-600 bg-amber-50 border-amber-200', severity: 'warning' };
     if (val > 5.5) return { text: '높음 (인 축적/합병증 우려)', color: 'text-rose-600 bg-rose-50 border-rose-200', severity: 'danger' };
     return { text: '적정 (투석 목표 범위)', color: 'text-emerald-600 bg-emerald-50 border-emerald-200', severity: 'safe' };
   };
 
   const getCalciumStatus = (val: number) => {
-    if (val < 8.5) return { text: '낮음 (저칼슘혈증)', color: 'text-amber-600 bg-amber-50 border-amber-200', severity: 'warning' };
+    if (val < 8.4) return { text: '낮음 (저칼슘혈증)', color: 'text-amber-600 bg-amber-50 border-amber-200', severity: 'warning' };
     if (val > 10.2) return { text: '높음 (고칼슘혈증)', color: 'text-rose-600 bg-rose-50 border-rose-200', severity: 'danger' };
     return { text: '적정 (투석 목표 범위)', color: 'text-emerald-600 bg-emerald-50 border-emerald-200', severity: 'safe' };
   };
 
   const getHemoglobinStatus = (val: number) => {
     if (val < 10.0) return { text: '낮음 (빈혈 우려)', color: 'text-amber-600 bg-amber-50 border-amber-200', severity: 'warning' };
-    if (val > 11.5) return { text: '높음 (혈전/합병증 우려)', color: 'text-rose-600 bg-rose-50 border-rose-200', severity: 'danger' };
+    if (val > 11.0) return { text: '높음 (혈전/합병증 우려)', color: 'text-rose-600 bg-rose-50 border-rose-200', severity: 'danger' };
     return { text: '적정 (투석 목표 범위)', color: 'text-emerald-600 bg-emerald-50 border-emerald-200', severity: 'safe' };
   };
 
@@ -695,7 +695,7 @@ export default function App() {
                   <div className="flex justify-between items-center mb-1">
                     <label className="text-xs font-semibold text-slate-700 flex items-center gap-1">
                       <span>인 수치 (P)</span>
-                      <span className="text-[10px] text-slate-400 font-normal">(목표: 2.5 - 5.5 mg/dL)</span>
+                      <span className="text-[10px] text-slate-400 font-normal">(목표: 3.0 - 5.5 mg/dL)</span>
                     </label>
                     <span className="text-xs font-mono font-bold text-orange-600">{phosphorus} mg/dL</span>
                   </div>
@@ -730,7 +730,7 @@ export default function App() {
                   <div className="flex justify-between items-center mb-1">
                     <label className="text-xs font-semibold text-slate-700 flex items-center gap-1">
                       <span>칼슘 수치 (Ca)</span>
-                      <span className="text-[10px] text-slate-400 font-normal">(목표: 8.5 - 10.2 mg/dL)</span>
+                      <span className="text-[10px] text-slate-400 font-normal">(목표: 8.4 - 10.2 mg/dL)</span>
                     </label>
                     <span className="text-xs font-mono font-bold text-orange-600">{calcium} mg/dL</span>
                   </div>
@@ -765,7 +765,7 @@ export default function App() {
                   <div className="flex justify-between items-center mb-1">
                     <label className="text-xs font-semibold text-slate-700 flex items-center gap-1">
                       <span>혈색소 (Hb)</span>
-                      <span className="text-[10px] text-slate-400 font-normal">(목표: 10.0 - 11.5 g/dL)</span>
+                      <span className="text-[10px] text-slate-400 font-normal">(목표: 10.0 - 11.0 g/dL)</span>
                     </label>
                     <span className="text-xs font-mono font-bold text-orange-600">{hemoglobin} g/dL</span>
                   </div>
@@ -1225,7 +1225,7 @@ export default function App() {
               <div className="text-[12px] mt-1 font-semibold">{caStatus.text}</div>
             </div>
             <div className={`p-2 bg-white rounded-lg border ${hbStatus.color}`}>
-              <div className="text-[13px] font-bold text-slate-500">측정 혈색소 (Hb) <span className="font-normal text-[11px] ml-0.5">(정상: 10.0~11.5)</span></div>
+              <div className="text-[13px] font-bold text-slate-500">측정 혈색소 (Hb) <span className="font-normal text-[11px] ml-0.5">(정상: 10.0~11.0)</span></div>
               <div className="text-[22px] font-extrabold font-mono mt-1">{hemoglobin} g/dL</div>
               <div className="text-[12px] mt-1 font-semibold">{hbStatus.text}</div>
             </div>
